@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/app")
 public class IndexController {
 	
 	/* por defecto es GET */
 	
-	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/index","", "/", "home"}, method = RequestMethod.GET)
 	public ModelAndView index(ModelAndView mv) {
 		mv.addObject("titulo", "hola spring framework con modelAndView!");
 		mv.setViewName("index");
