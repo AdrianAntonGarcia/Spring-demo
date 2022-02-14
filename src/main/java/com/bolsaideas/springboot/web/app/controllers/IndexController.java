@@ -1,6 +1,6 @@
 package com.bolsaideas.springboot.web.app.controllers;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 //import java.util.Map;
@@ -41,7 +41,12 @@ public class IndexController {
 
 	@RequestMapping("/listar")
 	public String listar(Model model) {
-		List<Usuario> usuarios = new ArrayList<>();
+		List<Usuario> usuarios = Arrays.asList(new Usuario("Andres", "Guzmán", "andres@correo.com"),
+				new Usuario("Adrián", "Antón", "adrian@correo.com"), new Usuario("Ana", "Romeu", "ana@correo.com"),
+				new Usuario("Tornado", "Roe", "roe@correo.com"));
+//		usuarios.add(new Usuario("Andres", "Guzmán", "andres@correo.com"));
+//		usuarios.add(new Usuario("Adrián", "Antón", "adrian@correo.com"));
+//		usuarios.add(new Usuario("Ana", "Romeu", "ana@correo.com"));
 		model.addAttribute("titulo", "Listado de usuarios: ");
 		model.addAttribute("usuarios", usuarios);
 		return "listar";
