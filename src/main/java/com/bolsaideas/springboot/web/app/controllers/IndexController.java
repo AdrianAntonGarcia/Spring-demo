@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.ui.ModelMap;	
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,16 +42,28 @@ public class IndexController {
 
 	@RequestMapping("/listar")
 	public String listar(Model model) {
-		List<Usuario> usuarios = Arrays.asList(new Usuario("Andres", "Guzmán", "andres@correo.com"),
-				new Usuario("Adrián", "Antón", "adrian@correo.com"), new Usuario("Ana", "Romeu", "ana@correo.com"),
-				new Usuario("Tornado", "Roe", "roe@correo.com"));
+
 //		usuarios.add(new Usuario("Andres", "Guzmán", "andres@correo.com"));
 //		usuarios.add(new Usuario("Adrián", "Antón", "adrian@correo.com"));
 //		usuarios.add(new Usuario("Ana", "Romeu", "ana@correo.com"));
 		model.addAttribute("titulo", "Listado de usuarios: ");
-		model.addAttribute("usuarios", usuarios);
+//		model.addAttribute("usuarios", usuarios);
 		return "listar";
 	}
+
+	/**
+	 * Se aplica en común a todos los métodos del controlador
+	 * 
+	 * @return
+	 */
+	@ModelAttribute("usuarios")
+	public List<Usuario> poblarUsuarios() {
+		List<Usuario> usuarios = Arrays.asList(new Usuario("Andres", "Guzmán", "andres@correo.com"),
+				new Usuario("Adrián", "Antón", "adrian@correo.com"), new Usuario("Ana", "Romeu", "ana@correo.com"),
+				new Usuario("Tornado", "Roe", "roe@correo.com"));
+		return usuarios;
+	}
+
 	// Diferentes formas de hacer lo mismo
 //	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
 //	public String index(Map<String, Object> model) {
