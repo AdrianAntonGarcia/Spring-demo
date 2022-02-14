@@ -1,5 +1,8 @@
 package com.bolsaideas.springboot.web.app.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -30,9 +33,18 @@ public class IndexController {
 		Usuario usuario = new Usuario();
 		usuario.setNombre("Adrián");
 		usuario.setApellido("Antón");
+		usuario.setEmail("adrtler@gmail.com");
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("titulo", "Perfil del usuario: ".concat(usuario.getNombre()));
 		return "perfil";
+	}
+
+	@RequestMapping("/listar")
+	public String listar(Model model) {
+		List<Usuario> usuarios = new ArrayList<>();
+		model.addAttribute("titulo", "Listado de usuarios: ");
+		model.addAttribute("usuarios", usuarios);
+		return "listar";
 	}
 	// Diferentes formas de hacer lo mismo
 //	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
