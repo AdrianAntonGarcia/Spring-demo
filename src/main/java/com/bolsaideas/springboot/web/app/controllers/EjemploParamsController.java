@@ -1,5 +1,7 @@
 package com.bolsaideas.springboot.web.app.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,40 @@ public class EjemploParamsController {
 			@RequestParam(value = "texto", required = false, defaultValue = "no ha entrado texto") String textoOtro,
 			Model model) {
 		model.addAttribute("resultado", "El texto enviado es: " + textoOtro);
+		return "params/ver";
+	}
+
+	/**
+	 * Enviando varios parámetros
+	 * 
+	 * @param saludo
+	 * @param numero
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/mix-param")
+	public String param(@RequestParam String saludo, @RequestParam Integer numero, Model model) {
+		model.addAttribute("resultado", "El salud enviado es: '" + saludo + "' y el número es '" + numero + "'");
+		return "params/ver";
+	}
+
+	/**
+	 * Usando el HttpServletRequest
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/mix-params-request")
+	public String param(HttpServletRequest request, Model model) {
+		String saludo = request.getParameter("saludo");
+		Integer numero = null;
+		try {
+			numero = Integer.parseInt(request.getParameter("numero"));
+		} catch (NumberFormatException e) {
+			numero = 0;
+		}
+		model.addAttribute("resultado", "El salud enviado es: '" + saludo + "' y el número es '" + numero + "'");
 		return "params/ver";
 	}
 
