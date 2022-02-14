@@ -3,6 +3,8 @@ package com.bolsaideas.springboot.web.app.controllers;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 //import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -20,11 +22,17 @@ import com.bolsaideas.springboot.web.app.models.Usuario;
 @RequestMapping("/app")
 public class IndexController {
 
-	/* por defecto es GET */
+	@Value("${texto.indexcontroller.index.titulo}")
+	private String textoIndex;
+	@Value("${texto.indexcontroller.perfil.titulo}")
+	private String textoPerfil;
+	@Value("${texto.indexcontroller.listar.titulo}")
+	private String textoListar;
 
+	/* por defecto es GET */
 	@RequestMapping(value = { "/index", "", "/", "home" }, method = RequestMethod.GET)
 	public ModelAndView index(ModelAndView mv) {
-		mv.addObject("titulo", "hola spring framework con modelAndView!");
+		mv.addObject("titulo", textoIndex);
 		mv.setViewName("index");
 		return mv;
 	}
@@ -36,7 +44,7 @@ public class IndexController {
 		usuario.setApellido("Antón");
 		usuario.setEmail("adrtler@gmail.com");
 		model.addAttribute("usuario", usuario);
-		model.addAttribute("titulo", "Perfil del usuario: ".concat(usuario.getNombre()));
+		model.addAttribute("titulo", textoPerfil.concat(usuario.getNombre()));
 		return "perfil";
 	}
 
@@ -46,7 +54,7 @@ public class IndexController {
 //		usuarios.add(new Usuario("Andres", "Guzmán", "andres@correo.com"));
 //		usuarios.add(new Usuario("Adrián", "Antón", "adrian@correo.com"));
 //		usuarios.add(new Usuario("Ana", "Romeu", "ana@correo.com"));
-		model.addAttribute("titulo", "Listado de usuarios: ");
+		model.addAttribute("titulo", textoListar);
 //		model.addAttribute("usuarios", usuarios);
 		return "listar";
 	}
